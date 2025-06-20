@@ -166,8 +166,8 @@
     <nav>
       <ul>
         <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="#"><i class="fas fa-truck"></i> Services</a></li>
-        <li><a href="#"><i class="fas fa-phone-alt"></i> Contact</a></li>
+        <!-- <li><a href="#"><i class="fas fa-truck"></i> Services</a></li>
+        <li><a href="#"><i class="fas fa-phone-alt"></i> Contact</a></li> -->
       </ul>
     </nav>
   </header>
@@ -188,14 +188,14 @@
     <h3><i class="fas fa-history"></i> Tracking History</h3>
     <div id="trackingHistory"></div>
 
-    <div class="share-options">
+    <!-- <div class="share-options">
       <h4><i class="fas fa-share-alt"></i> Share Tracking Details:</h4>
       <button id="whatsappShareBtn" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</button>
       <button id="emailShareBtn" class="share-btn email"><i class="fas fa-envelope"></i> Email</button>
       <button id="copyLinkBtn" class="share-btn link"><i class="fas fa-link"></i> Copy Link</button>
       <button id="copyNumberBtn" class="share-btn copy-btn"><i class="fas fa-copy"></i> Copy Number</button>
       <div id="qrcode"></div>
-    </div>
+    </div> -->
   </div>
 
   <!-- ✅ Footer -->
@@ -252,21 +252,21 @@
         document.getElementById("trackingResults").style.display = "block";
 
         // Share buttons
-        const shareURL = `${window.location.origin}/track/${trackingNumber}`;
-        document.getElementById("whatsappShareBtn").onclick = () => {
-          window.open(`https://wa.me/?text=Track your package: ${shareURL}`, '_blank');
-        };
-        document.getElementById("emailShareBtn").onclick = () => {
-          window.location.href = `mailto:?subject=Your Package Tracking Info&body=Track it here: ${shareURL}`;
-        };
-        document.getElementById("copyLinkBtn").onclick = () => {
-          navigator.clipboard.writeText(shareURL);
-          alert("Link copied!");
-        };
-        document.getElementById("copyNumberBtn").onclick = () => {
-          navigator.clipboard.writeText(trackingNumber);
-          alert("Tracking number copied!");
-        };
+        // const shareURL = `${window.location.origin}/track/${trackingNumber}`;
+        // document.getElementById("whatsappShareBtn").onclick = () => {
+        //   window.open(`https://wa.me/?text=Track your package: ${shareURL}`, '_blank');
+        // };
+        // document.getElementById("emailShareBtn").onclick = () => {
+        //   window.location.href = `mailto:?subject=Your Package Tracking Info&body=Track it here: ${shareURL}`;
+        // };
+        // document.getElementById("copyLinkBtn").onclick = () => {
+        //   navigator.clipboard.writeText(shareURL);
+        //   alert("Link copied!");
+        // };
+        // document.getElementById("copyNumberBtn").onclick = () => {
+        //   navigator.clipboard.writeText(trackingNumber);
+        //   alert("Tracking number copied!");
+        // };
 
       } catch (err) {
         document.getElementById("trackingResult").textContent = "❌ Tracking failed or package not found.";
