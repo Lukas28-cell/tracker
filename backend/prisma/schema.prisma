@@ -1,0 +1,35 @@
+// schema.prisma
+// Learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Package {
+  id               String   @id @default(uuid())
+  trackingNumber   String   @unique
+  sender           String
+  recipient        String
+  origin           String
+  destination      String
+  service          String
+  carrier          String
+  dimensions       Json    
+  physicalWeight   Float
+  volumetricWeight   Float?
+  finalWeight        Float?
+  weightCategory     String?
+  shippingCost       Float?
+  currentLocation    String?   
+  status           String   @default("created")
+  history          Json
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+

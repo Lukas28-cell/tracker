@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Track Package | SwiftTrack</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .dashboard-container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(to right, #3498db, #2ecc71);
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-box {
+      background: #ecf0f1;
+      padding: 1.25rem;
+      border-radius: 8px;
+    }
+
+    .info-box p {
+      margin: 0.5rem 0;
+      font-size: 15px;
+    }
+
+    .track-title {
+      font-size: 18px;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+    }
+
+    .back-btn {
+      margin-top: 1.5rem;
+      background: #e67e22;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .back-btn:hover {
+      box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="section-header">
+      <i class="fas fa-search-location"></i>
+      <h2>Track Package</h2>
+    </div>
+
+    <div class="track-title">Tracking Number: <span id="trackNum"></span></div>
+
+    <div class="info-box" id="trackInfo">Fetching tracking info...</div>
+
+    <button class="back-btn" onclick="goBack()">
+      <i class="fas fa-arrow-left"></i> Go Back
+    </button>
+  </div>
+
+  <script>
+    const trackingNumber = window.location.pathname.split("/").pop();
+    document.getElementById("trackNum").textContent = trackingNumber;
+
+    fetch(`https://swift-backend-kdc3.onrender.com/api/packages/${trackingNumber}`)
+      .then(res => res.json())
+      .then(data => {
+        const box = document.getElementById("trackInfo");
+
+        if (data.message === 'Not found') {
+          box.innerHTML = `<p><strong>Status:</strong> Package not found.</p>`;
+        } else {
+          box.innerHTML = `
+            <p><strong>Status:</strong> ${data.status}</p>
+            <p><strong>Current Location:</strong> ${data.currentLocation}</p>
+            <p><strong>Sender:</strong> ${data.sender}</p>
+            <p><strong>Recipient:</strong> ${data.recipient}</p>
+            <p><strong>Origin:</strong> ${data.origin}</p>
+            <p><strong>Destination:</strong> ${data.destination}</p>
+            <p><strong>Service:</strong> ${data.service}</p>
+            <p><strong>Weight:</strong> ${data.physicalWeight} kg</p>
+            <p><strong>Shipping Cost:</strong> ₦${data.shippingCost.toLocaleString()}</p>
+          `;
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById("trackInfo").innerHTML = "<p>Error fetching package data. Please try again later.</p>";
+      });
+
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>
